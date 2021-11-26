@@ -1,0 +1,31 @@
+:root {
+  --primary-light: #8abdff;
+  --primary: #6d5dfc;
+  --primary-dark: #5b0eeb;
+  --white: #ffffff;
+  --greyLight-1: #e4ebf5;
+  --greyLight-2: #c8d0e7;
+  --greyLight-3: #bec8e4;
+  --greyDark: #9baacf;
+  --font-big: 2rem;
+  --font-normal-2: 1.5rem;
+  --font-normal-1: 1rem;
+  --font-min-1: 0.8rem;
+
+  --min-width: 288px;
+  --btn-border-radius: 0.5rem;
+
+  --transition: all 0.7s ease-out;
+
+  --shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+    -0.2rem -0.2rem 0.5rem white;
+
+  --shadow-active: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+    inset -0.2rem -0.2rem 0.5rem white;
+
+  --shadow-primary: inset 0.2rem 0.2rem 1rem var(--primary-light),
+    inset -0.2rem -0.2rem 1rem var(--primary-dark);
+
+  --shadow-primary-active: inset 0.2rem 0.2rem 1rem var(--primary-dark),
+    inset -0.2rem -0.2rem 1rem var(--primary-light);
+}
