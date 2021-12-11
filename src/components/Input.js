@@ -1,6 +1,17 @@
 import React from "react";
 
-function Input({ value, name, id, type, onChange, min, max, styles, checked }) {
+function Input({
+  value,
+  name,
+  id,
+  type,
+  onChange,
+  min,
+  max,
+  styles,
+  checked,
+  disabled,
+}) {
   return (
     <input
       className={styles}
@@ -12,6 +23,7 @@ function Input({ value, name, id, type, onChange, min, max, styles, checked }) {
       min={min}
       max={max}
       checked={checked}
+      disabled={disabled}
     ></input>
   );
 }

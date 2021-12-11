@@ -1,0 +1,42 @@
+.create,
+.copy {
+  width: 150px;
+  height: 45px;
+  margin: 10px 0;
+  border: none;
+  border-radius: var(--btn-border-radius);
+  font-size: var(--font-normal-1);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+}
+
+.copy:disabled,
+.create:disabled {
+  border: 1px solid var(--greyDark);
+  background: none;
+  color: var(--greyDark);
+  box-shadow: none;
+  cursor: auto;
+  transition: var(--transition);
+}
+
+.create {
+  background: var(--primary);
+  color: var(--greyLight-1);
+  box-shadow: var(--shadow-primary);
+}
+
+.copy {
+  color: var(--greyDark);
+  box-shadow: var(--shadow);
+}
+
+.copy:active {
+  box-shadow: var(--shadow-active);
+}
+
+.create:active {
+  box-shadow: var(--shadow-active);
+}
