@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import styles from "./App.module.css";
+import "./index.css";
+// import styles from "./App.module.css";
 import Button from "./components/Button";
 import Input from "./components/Input";
 
@@ -29,13 +30,11 @@ function App() {
   /* Результат генерации */
   const [password, setPassword] = useState("");
   /* Длина пароля */
-  const [lengthPassword, setLengthPassword] = useState(8);
+  const [lengthPassword, setLengthPassword] = useState(10);
   /* Выбранные опции */
   const [checkedOptions, setCheckedOptions] = useState(
     new Array(options.length).fill(false)
   );
-  console.log(checkedOptions);
-
   /* Строка с выбранными опциями для генератора */
   const [strOptions, setStrOptions] = useState("");
   /* Проверка опций / Активация кнопки генерации */
@@ -50,8 +49,10 @@ function App() {
   const [checkedRadio, setCheckedRadio] = useState(
     new Array(options.length).fill(false)
   );
+  // Проверка количества выбранных опций для генерации пароля
+  let optionTrue = checkedOptions.filter((item) => item === true).length <= 1;
 
-  /* Обрабочик выбора первого символа */
+  // Обрабочик выбора первого символа
   function handleFirstSymbol(event) {
     setCheckedRadio(checkedRadio.fill(false));
     setFirstSymbol(event.target.value);
@@ -61,8 +62,8 @@ function App() {
     setCheckedRadio(updatedCheckedRadio);
   }
 
-  /* Обрабочик Checkbox */
-  const handleCheckbox = (position) => {
+  // Обрабочик опций для генерации пароля
+  const handleOption = (position) => {
     const updatedCheckedOptions = checkedOptions.map((item, index) =>
       index === position ? !item : item
     );
@@ -86,11 +87,11 @@ function App() {
     setStrOptions(updatedStrOptions);
   };
 
-  /* Обрабочик длины пароля */
+  // Обрабочик длины пароля
   function handleLengthPassword(event) {
     setLengthPassword(event.target.value);
   }
-  /* Обрабочик уникальных символов */
+  // Обрабочик уникальных символов
   function handleUnique() {
     setUnique(!unique);
   }
@@ -101,7 +102,7 @@ function App() {
       : setMessage("");
   }
 
-  /* Функция генерации простого пароля */
+  // Генерация простого пароля
   function generationSimple(string) {
     let passwordGeneration = [];
     if (firstSymbol ? true : false) {
@@ -123,7 +124,16 @@ function App() {
       setPassword(passwordGeneration);
     }
   }
-  /* Функция генерации пароля с неповторяющимися символами */
+  // Цикл подбора уникального символа
+  function uniqueSymbolCycle(arr, str) {
+    let item;
+    do {
+      item = str.charAt(Math.floor(Math.random() * str.length));
+    } while (arr.includes(item));
+    arr.push(item);
+    return arr;
+  }
+  // Генерация пароля с неповторяющимися символами
   function generationUnique(string) {
     let passwordGeneration = [];
     if (firstSymbol ? true : false) {
@@ -138,11 +148,7 @@ function App() {
           : string.length - 1);
         counter++
       ) {
-        let item;
-        do {
-          item = string.charAt(Math.floor(Math.random() * string.length));
-        } while (passwordGeneration.includes(item));
-        passwordGeneration.push(item);
+        uniqueSymbolCycle(passwordGeneration, string);
       }
       setPassword(passwordGeneration.join(""));
       alertMassage(string);
@@ -153,57 +159,53 @@ function App() {
         (lengthPassword < string.length ? lengthPassword : string.length);
         counter++
       ) {
-        let item;
-        do {
-          item = string.charAt(Math.floor(Math.random() * string.length));
-        } while (passwordGeneration.includes(item));
-        passwordGeneration.push(item);
+        uniqueSymbolCycle(passwordGeneration, string);
       }
       setPassword(passwordGeneration.join(""));
       alertMassage(string);
     }
   }
 
-  /* Функция обработки выбора режима для генерации пароля */
+  // Обработки выбора режима для генерации пароля
   const generation = (string) =>
     unique ? generationUnique(string) : generationSimple(string);
 
-  /* Функция копирования пароля в буфер обмена */
+  // Копирование пароля в буфер обмена
   function copyPassword(password) {
     navigator.clipboard.writeText(password);
   }
-  let test = checkedOptions.filter((number) => number === true);
+
   useEffect(() => {
     setDisable(checkedOptions.every((option) => option === false));
 
-    if (test.length <= 1) {
+    if (optionTrue) {
       setCheckedRadio(checkedRadio.fill(false));
       setFirstSymbol("");
     }
     setMessage("");
-  }, [checkedOptions, test.length, checkedRadio, lengthPassword]);
+  }, [checkedOptions, optionTrue, checkedRadio, lengthPassword]);
 
   return (
-    <article className={styles.container}>
-      <h1 className={styles.title}>Генератор паролей</h1>
-      <p className={styles.password} id="password">
+    <article className="container">
+      <h1 className="title">Генератор паролей</h1>
+      <p className="password" id="password">
         {password}{" "}
       </p>
-      <span className={styles.message}>{message}</span>
+      <span className="message">{message}</span>
 
       <Button
         type={"button"}
-        styles={styles.copy}
+        styles="copy"
         title={"Копировать"}
         disabled={!password}
         onClick={() => copyPassword(password)}
         text={"Копировать"}
       />
 
-      <div className={styles.slider}>
-        <label className={styles.input_label} htmlFor="length">
+      <div className="password__length">
+        <label className="password__length_label" htmlFor="length">
           Длина пароля&nbsp;
-          <span className={styles.input_label_span}>{lengthPassword}</span>
+          <span className="password__length_span">{lengthPassword}</span>
         </label>
         <Input
           type={"range"}
@@ -216,30 +218,24 @@ function App() {
         />
       </div>
 
-      <ul className={styles.options_list}>
+      <ul className="options__list">
         {options.map(({ name }, index) => {
           return (
-            <li key={index} className={styles.options_list_item}>
+            <li key={index} className="options__list_item">
               <Input
-                styles={styles.checkbox}
                 type={"checkbox"}
-                id={`custom-checkbox-${index}`}
+                id={`option-${index}`}
                 name={name}
                 value={name}
                 checked={checkedOptions[index]}
-                onChange={() => handleCheckbox(index)}
+                onChange={() => handleOption(index)}
               />
-              <label
-                className={styles.checkbox_label}
-                htmlFor={`custom-checkbox-${index}`}
-              >
-                {name}
-              </label>
+              <label htmlFor={`option-${index}`}>{name}</label>
             </li>
           );
         })}
       </ul>
-      <div className={styles.input_unique}>
+      <div className="unique__symbol">
         <Input
           type={"checkbox"}
           id={"unique"}
@@ -247,12 +243,12 @@ function App() {
           value={unique}
           onChange={handleUnique}
         />
-        <label className={styles.input_unique_label} htmlFor="unique"></label>
-        <span className={styles.input_unique_span}>Символы не повторяются</span>
+        <label className="unique__symbol_label" htmlFor="unique"></label>
+        <span className="unique__symbol_span">Символы не повторяются</span>
       </div>
-      <div className={styles.wrapperFirstSymbol}>
+      <div className="first__symbol">
         Первый символ
-        <ul className={styles.listFirstSymbol}>
+        <ul className="first__symbol_list">
           {options.map(({ shortName }, index) => {
             return (
               <li key={index}>
@@ -262,10 +258,10 @@ function App() {
                   id={index}
                   value={options[index].value}
                   checked={checkedRadio[index] && checkedOptions[index]}
-                  disabled={test.length <= 1 || !checkedOptions[index]}
+                  disabled={optionTrue || !checkedOptions[index]}
                   onChange={handleFirstSymbol}
                 />
-                <label className={styles.firstSymbolLabel} htmlFor={index}>
+                <label className="first__symbol_label" htmlFor={index}>
                   {shortName}
                 </label>
               </li>
@@ -277,10 +273,10 @@ function App() {
               id="4"
               name="radio2"
               value=""
-              checked={firstSymbol === "" || test.length <= 1}
+              checked={firstSymbol === "" || optionTrue}
               onChange={handleFirstSymbol}
             />
-            <label className={styles.firstSymbolLabel} htmlFor="4">
+            <label className="first__symbol_label" htmlFor="4">
               Любой
             </label>
           </li>
@@ -288,7 +284,7 @@ function App() {
       </div>
       <Button
         type={"button"}
-        styles={styles.create}
+        styles="create"
         title={"Создать"}
         disabled={disable}
         onClick={() => generation(strOptions)}

@@ -14,21 +14,26 @@
 
 .copy:disabled,
 .create:disabled {
-  border: 1px solid var(--greyDark);
   background: none;
   color: var(--greyDark);
   box-shadow: none;
   cursor: auto;
   transition: var(--transition);
+  pointer-events: none;
+}
+
+.create:disabled {
+  border: 1px solid var(--greyDark);
 }
 
 .create {
   background: var(--primary);
+  box-shadow: var(--shadow-primary), var(--shadow);
   color: var(--greyLight-1);
-  box-shadow: var(--shadow-primary);
 }
 
 .copy {
+  background: inherit;
   color: var(--greyDark);
   box-shadow: var(--shadow);
 }
@@ -36,7 +41,13 @@
 .copy:active {
   box-shadow: var(--shadow-active);
 }
+.copy:hover {
+  color: var(--primary);
+}
+.copy:disabled:hover {
+  color: var(--greyDark);
+}
 
 .create:active {
-  box-shadow: var(--shadow-active);
+  box-shadow: var(--shadow-primary-active);
 }

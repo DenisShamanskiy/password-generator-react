@@ -1,13 +1,14 @@
-.wrapperFirstSymbol {
+.first__symbol {
   width: 300px;
   margin: 10px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: var(--font-min-1);
+  user-select: none;
 }
 
-.listFirstSymbol {
+.first__symbol_list {
   width: 100%;
   margin: 15px 0;
   padding: 0;
@@ -18,49 +19,50 @@
   align-items: center;
   justify-content: center;
   list-style: none;
+  user-select: none;
 }
 
-.listFirstSymbol input {
+.first__symbol_list input {
   display: none;
 }
 
-.listFirstSymbol > li > input + label {
+.first__symbol_list > li > input + label {
   height: 40px;
   border-radius: var(--btn-border-radius);
   box-shadow: var(--shadow);
   transition: var(--transition);
 }
 
-.listFirstSymbol > li > input:checked + label {
+.first__symbol_list > li > input:checked + label {
   color: var(--primary);
   box-shadow: var(--shadow-active);
   cursor: pointer;
   transition: var(--transition);
 }
 
-.listFirstSymbol > li > input:disabled + .firstSymbolLabel {
+.first__symbol_list > li > input:disabled + .first__symbol_label {
+  color: var(--greyDark);
   box-shadow: none;
   cursor: default;
 }
 
-.listFirstSymbol > li > input:disabled:hover + .firstSymbolLabel {
+.first__symbol_list > li > input:disabled:hover + .first__symbol_label {
   color: var(--greyDark);
 }
 
-.firstSymbolLabel {
+.first__symbol_label {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--greyDark);
   font-size: var(--font-min-1);
   cursor: pointer;
   transition: var(--transition);
 }
 
-.firstSymbolLabel:hover {
+.first__symbol_label:hover {
   color: var(--primary);
 }
 
-.listFirstSymbol > li:nth-of-type(5) {
+.first__symbol_list > li:nth-of-type(5) {
   grid-column: 2/4;
 }

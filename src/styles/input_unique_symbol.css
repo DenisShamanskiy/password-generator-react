@@ -1,0 +1,56 @@
+.unique__symbol {
+  width: 220px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.unique__symbol input {
+  display: none;
+}
+
+.unique__symbol label {
+  position: relative;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.unique__symbol label::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--greyDark);
+  transition: var(--transition);
+}
+
+.unique__symbol input:checked + .unique__symbol_label {
+  box-shadow: var(--shadow-active);
+}
+
+.unique__symbol input:checked + .unique__symbol_label::after {
+  background: var(--primary);
+}
+
+.unique__symbol .unique__symbol_label:hover::after {
+  scale: 1.1;
+}
+
+.unique__symbol_span {
+  margin-left: auto;
+  color: var(--greyDark);
+  font-size: var(--font-min-1);
+  text-align: center;
+  transition: var(--transition);
+  user-select: none;
+}
+
+.unique__symbol input:checked ~ .unique__symbol_span {
+  color: var(--primary);
+}
